@@ -1,6 +1,9 @@
 package com.imooc.sell.dto;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.imooc.sell.model.OrderDetail;
+import com.imooc.sell.util.serialize.DateLongSerializer;
 
 import java.math.BigDecimal;
 import java.sql.Date;
@@ -9,8 +12,13 @@ import java.util.List;
 /**
  * Created by yingchuanfu on 2018/11/23 0023.
  */
+//过时
+//@JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
+//写在application.properties配置文件
+// /@JsonInclude(JsonInclude.Include.NON_NULL)
 public class OrderDTO {
 
+    private String orderId;
     /** 买家名字 */
     private String buyerName;
     /** 买家手机号 */
@@ -26,11 +34,21 @@ public class OrderDTO {
     /** 支付状态:默认0未支付 */
     private Integer payStatus;
     /** 创建时间 */
+    @JsonSerialize(using = DateLongSerializer.class)
     private Date createTime;
     /** 更新时间 */
+    @JsonSerialize(using = DateLongSerializer.class)
     private Date updateTime;
 
     List<OrderDetail> orderDetailList;
+
+    public String getOrderId() {
+        return orderId;
+    }
+
+    public void setOrderId(String orderId) {
+        this.orderId = orderId;
+    }
 
     public String getBuyerName() {
         return buyerName;
