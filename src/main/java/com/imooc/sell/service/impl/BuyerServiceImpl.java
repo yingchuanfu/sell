@@ -8,10 +8,12 @@ import com.imooc.sell.service.OrderMasterService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 /**
  * Created by yingchuanfu on 2018/12/1 0001.
  */
+@Service
 public class BuyerServiceImpl implements BuyerService {
 
     private static final Logger logger = LoggerFactory

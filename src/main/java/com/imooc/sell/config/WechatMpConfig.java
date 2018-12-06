@@ -5,6 +5,7 @@ import me.chanjar.weixin.mp.api.WxMpInMemoryConfigStorage;
 import me.chanjar.weixin.mp.api.WxMpService;
 import me.chanjar.weixin.mp.api.impl.WxMpServiceApacheHttpClientImpl;
 import me.chanjar.weixin.mp.api.impl.WxMpServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
@@ -13,6 +14,9 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class WechatMpConfig {
+
+    @Autowired
+    private WechatAccoutConfig accoutConfig;
     @Bean
     public WxMpService wxMpService(){
         WxMpService wxMpService = new WxMpServiceImpl();
@@ -22,6 +26,8 @@ public class WechatMpConfig {
     @Bean
     public WxMpConfigStorage wxMpConfigStorage(){
         WxMpInMemoryConfigStorage wxMpInMemoryConfigStorage = new WxMpInMemoryConfigStorage();
-        return null;
+        wxMpInMemoryConfigStorage.setAppId(accoutConfig.getMpAppId());
+        wxMpInMemoryConfigStorage.setSecret(accoutConfig.getMpAppSecret());
+        return wxMpInMemoryConfigStorage;
     }
 }
