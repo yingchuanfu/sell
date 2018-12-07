@@ -78,7 +78,7 @@ public class OrderMasterServiceImplTest {
     public void cancel() throws Exception {
         OrderDTO orderDTO = orderMasterService.findOne(ORDER_ID);
         OrderDTO result = orderMasterService.cancel(orderDTO);
-        Assert.assertEquals(OrderStatusEnum.CANCEL.getCode(), result.getOrder_status());
+        Assert.assertEquals(OrderStatusEnum.CANCEL.getCode(), result.getOrderStatus());
 
     }
 
@@ -86,7 +86,7 @@ public class OrderMasterServiceImplTest {
     public void finish() throws Exception {
         OrderDTO orderDTO = orderMasterService.findOne(ORDER_ID);
         OrderDTO result = orderMasterService.finish(orderDTO);
-        Assert.assertEquals(OrderStatusEnum.FINISHED.getCode(), result.getOrder_status());
+        Assert.assertEquals(OrderStatusEnum.FINISHED.getCode(), result.getOrderStatus());
     }
 
     @Test
@@ -96,4 +96,12 @@ public class OrderMasterServiceImplTest {
         Assert.assertEquals(PayStatusEnum.SUCCESS.getCode(), result.getPayStatus());
     }
 
+    @Test
+    public void list(){
+        PageRequest pageRequest = new PageRequest(0, 2);
+        Page<OrderDTO> orderDTOPage = orderMasterService.findList(pageRequest);
+        //Assert.assertNotEquals(0, orderDTOPage.getTotalElements());
+        //单元测试另一种写法
+        Assert.assertTrue("查询订单列表", orderDTOPage.getTotalElements() != 0);
+    }
 }

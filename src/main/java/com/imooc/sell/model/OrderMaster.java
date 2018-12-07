@@ -35,7 +35,7 @@ public class OrderMaster {
     /** 订单总金额 */
     private BigDecimal orderAmount;
     /** 订单状态:默认0为新下单 */
-    private Integer order_status = OrderStatusEnum.NEW.getCode();
+    private Integer orderStatus = OrderStatusEnum.NEW.getCode();
     /** 支付状态:默认0未支付 */
     private Integer payStatus = PayStatusEnum.WAIT.getCode();
     /** 创建时间 */
@@ -93,12 +93,12 @@ public class OrderMaster {
         this.orderAmount = orderAmount;
     }
 
-    public Integer getOrder_status() {
-        return order_status;
+    public Integer getOrderStatus() {
+        return orderStatus;
     }
 
-    public void setOrder_status(Integer order_status) {
-        this.order_status = order_status;
+    public void setOrderStatus(Integer orderStatus) {
+        this.orderStatus = orderStatus;
     }
 
     public Integer getPayStatus() {

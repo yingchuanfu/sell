@@ -4,6 +4,7 @@ package com.imooc.sell.enums;
  * Created by yingchuanfu on 2018/11/23 0023.
  */
 public enum ResultEnum {
+    SUCCESS(200, "成功"),
     PARAM_ERROR(-1, "参数不正确"),
     PRODUCT_NOT_EXIST(0, "商品不存在"),
     PRODUCT_STOCK_ERROR(1, "商品库存不足"),
@@ -16,7 +17,8 @@ public enum ResultEnum {
     CART_EMPTY(8, "购物车为空"),
     ORDER_OWNER_ERROR(9, "该订单不属于当前用户"),
     WECHAT_MP_ERROR(10, "微信公众号相关错误"),
-    WXPAY_NOTIFY_MONEY_VERIFY_ERROR(11, "微信支付异步通知金额校验不通过")
+    WXPAY_NOTIFY_MONEY_VERIFY_ERROR(11, "微信支付异步通知金额校验不通过"),
+    ORDER_FINISH_SUCCESS(12, "订单完结成功")
             ;
     private Integer code;
 

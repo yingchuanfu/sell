@@ -3,7 +3,7 @@ package com.imooc.sell.enums;
 /**
  * Created by yingchuanfu on 2018/11/23 0023.
  */
-public enum PayStatusEnum {
+public enum PayStatusEnum implements CodeEnum{
     WAIT(0, "等待支付"),
     SUCCESS(1, "支付成功");
     private Integer code;

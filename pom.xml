@@ -25,6 +25,10 @@
 	</properties>
 
 	<dependencies>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-freemarker</artifactId>
+		</dependency>
 		<!--支付sdk-->
 		<dependency>
 			<groupId>cn.springboot</groupId>

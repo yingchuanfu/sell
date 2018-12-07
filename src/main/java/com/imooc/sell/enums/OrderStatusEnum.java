@@ -3,7 +3,7 @@ package com.imooc.sell.enums;
 /**
  * Created by yingchuanfu on 2018/11/23 0023.
  */
-public enum OrderStatusEnum {
+public enum OrderStatusEnum implements CodeEnum{
     NEW(0, "新订单"),
     FINISHED(1, "完结"),
     CANCEL(2, "已取消");

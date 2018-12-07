@@ -30,7 +30,7 @@ public class PayController {
                                @RequestParam("returnUrl") String returnUrl,
                                Map<String, Object> map){
         //1查询订单
-        OrderDTO orderDTO = orderMasterService.findOne("");
+        OrderDTO orderDTO = orderMasterService.findOne("123");
         if (orderDTO == null){
             throw new SellException(ResultEnum.ORDER_NOT_EXIT);
         }

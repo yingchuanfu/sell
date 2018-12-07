@@ -1,8 +1,12 @@
 package com.imooc.sell.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.imooc.sell.enums.OrderStatusEnum;
+import com.imooc.sell.enums.PayStatusEnum;
 import com.imooc.sell.model.OrderDetail;
+import com.imooc.sell.util.EnumUtil;
 import com.imooc.sell.util.serialize.DateLongSerializer;
 
 import java.math.BigDecimal;
@@ -30,7 +34,7 @@ public class OrderDTO {
     /** 订单总金额 */
     private BigDecimal orderAmount;
     /** 订单状态:默认0为新下单 */
-    private Integer order_status;
+    private Integer orderStatus;
     /** 支付状态:默认0未支付 */
     private Integer payStatus;
     /** 创建时间 */
@@ -41,7 +45,15 @@ public class OrderDTO {
     private Date updateTime;
 
     List<OrderDetail> orderDetailList;
-
+    //返回前端数据忽略
+    @JsonIgnore
+    public OrderStatusEnum getOrderStatusEnum(){
+        return EnumUtil.getByCode(orderStatus, OrderStatusEnum.class);
+    }
+    @JsonIgnore
+    public PayStatusEnum getPayStatusEnum(){
+        return EnumUtil.getByCode(payStatus, PayStatusEnum.class);
+    }
     public String getOrderId() {
         return orderId;
     }
@@ -90,12 +102,12 @@ public class OrderDTO {
         this.orderAmount = orderAmount;
     }
 
-    public Integer getOrder_status() {
-        return order_status;
+    public Integer getOrderStatus() {
+        return orderStatus;
     }
 
-    public void setOrder_status(Integer order_status) {
-        this.order_status = order_status;
+    public void setOrderStatus(Integer orderStatus) {
+        this.orderStatus = orderStatus;
     }
 
     public Integer getPayStatus() {
