@@ -1,13 +1,22 @@
 package com.imooc.sell.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.imooc.sell.enums.CodeEnum;
+import com.imooc.sell.enums.ProductStatusEnum;
+import com.imooc.sell.util.EnumUtil;
+import org.hibernate.annotations.DynamicUpdate;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import java.math.BigDecimal;
+import java.util.Date;
+
 
 /**
  * Created by yingchuanfu on 2018/11/22 0022.
  */
 @Entity
+@DynamicUpdate
 public class ProductInfo {
     @Id
     private String productId;
@@ -22,10 +31,16 @@ public class ProductInfo {
     /** 图片 */
     private String productIcon;
     /** 状态:0正常,1下架 */
-    private Integer productStatus;
+    private Integer productStatus = ProductStatusEnum.UP.getCode();
     /** 类目编号 */
     private Integer categoryType;
+    private Date createTime;
+    private Date updateTime;
 
+    @JsonIgnore
+    public ProductStatusEnum getProductStatusEnum(){
+        return EnumUtil.getByCode(productStatus, ProductStatusEnum.class);
+    }
     public String getProductId() {
         return productId;
     }
@@ -88,5 +103,21 @@ public class ProductInfo {
 
     public void setCategoryType(Integer categoryType) {
         this.categoryType = categoryType;
+    }
+
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
+
+    public Date getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
     }
 }

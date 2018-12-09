@@ -4,7 +4,7 @@ package com.imooc.sell.enums;
  * 商品状态
  * Created by yingchuanfu on 2018/11/22 0022.
  */
-public enum ProductStatusEnum {
+public enum ProductStatusEnum implements CodeEnum{
     UP(0, "在架"),
     DOWN(1, "下架");
     private Integer code;

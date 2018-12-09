@@ -5,6 +5,7 @@ import com.imooc.sell.dto.OrderDTO;
 import com.imooc.sell.enums.OrderStatusEnum;
 import com.imooc.sell.enums.PayStatusEnum;
 import com.imooc.sell.enums.ResultEnum;
+import com.imooc.sell.exception.ResponseBankException;
 import com.imooc.sell.exception.SellException;
 import com.imooc.sell.model.OrderDetail;
 import com.imooc.sell.model.OrderMaster;
@@ -13,6 +14,8 @@ import com.imooc.sell.repository.OrderDetailRepository;
 import com.imooc.sell.repository.OrderMasterRepository;
 import com.imooc.sell.service.OrderMasterService;
 import com.imooc.sell.service.ProductInfoService;
+import com.imooc.sell.service.PushMessgeService;
+import com.imooc.sell.service.WebSocket;
 import com.imooc.sell.util.Converter;
 import com.imooc.sell.util.KeyUtil;
 import org.slf4j.Logger;
@@ -30,6 +33,7 @@ import org.springframework.util.CollectionUtils;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -41,12 +45,22 @@ public class OrderMasterServiceImpl implements OrderMasterService {
 
     private static final Logger logger = LoggerFactory
             .getLogger(OrderMasterServiceImpl.class);
+
     @Autowired
     private ProductInfoService productInfoService;
+
     @Autowired
     private OrderDetailRepository orderDetailRepository;
+
     @Autowired
     private OrderMasterRepository orderMasterRepository;
+
+    @Autowired
+    private PushMessgeService pushMessgeService;
+
+    @Autowired
+    private WebSocket webSocket;
+
     @Override
     @Transactional
     public OrderDTO create(OrderDTO orderDTO) {
@@ -60,6 +74,8 @@ public class OrderMasterServiceImpl implements OrderMasterService {
             ProductInfo productInfo = productInfoService.findOne(orderDetail.getProductId());
             if (productInfo == null){
                 throw new SellException(ResultEnum.PRODUCT_NOT_EXIST);
+                //以下演示请求错误,返回的http请求状态码不为200
+                //throw new ResponseBankException();
             }
             //2.计算订单总价
             orderAmount = productInfo.getProductPrice()
@@ -69,7 +85,8 @@ public class OrderMasterServiceImpl implements OrderMasterService {
             BeanUtils.copyProperties(productInfo, orderDetail);
             orderDetail.setDetailId(KeyUtil.getUniqueKey());
             orderDetail.setOrderId(orderId);
-
+            orderDTO.setCreateTime(new Date());
+            orderDTO.setUpdateTime(new Date());
             orderDetailRepository.save(orderDetail);
 
 //            CartDTO cartDTO = new CartDTO(orderDetail.getProductId(), orderDetail.getProductQuantity());
@@ -84,6 +101,8 @@ public class OrderMasterServiceImpl implements OrderMasterService {
         orderMaster.setOrderAmount(orderAmount);
         orderMaster.setOrderStatus(OrderStatusEnum.NEW.getCode());
         orderMaster.setPayStatus(PayStatusEnum.WAIT.getCode());
+        orderMaster.setCreateTime(new Date());
+        orderMaster.setUpdateTime(new Date());
         orderMasterRepository.save(orderMaster);
         //4.扣库存
         List<CartDTO> cartDTOList = orderDTO.getOrderDetailList()
@@ -91,6 +110,10 @@ public class OrderMasterServiceImpl implements OrderMasterService {
                 .map(e -> new CartDTO(e.getProductId(), e.getProductQuantity()))
                 .collect(Collectors.toList());
         productInfoService.decreaseStock(cartDTOList);
+
+        //发送websocket消息
+       //webSocket.sendMessage("有新的订单");
+        webSocket.sendMessage("新的订单" + orderDTO.getOrderId());
         return orderDTO;
     }
 
@@ -173,6 +196,10 @@ public class OrderMasterServiceImpl implements OrderMasterService {
             logger.error("【完结订单】更新失败, orderMaster={}", orderDTO);
             throw new SellException(ResultEnum.ORDER_UPDATE_FAIL);
         }
+
+        //推送微信模板消息
+        //pushMessgeService.orderStatus(orderDTO);
+
         return orderDTO;
     }
 

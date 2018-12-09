@@ -10,7 +10,7 @@ import com.imooc.sell.util.EnumUtil;
 import com.imooc.sell.util.serialize.DateLongSerializer;
 
 import java.math.BigDecimal;
-import java.sql.Date;
+import java.util.Date;
 import java.util.List;
 
 /**

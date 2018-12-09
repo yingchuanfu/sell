@@ -3,6 +3,7 @@ package com.imooc.sell.model;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import java.math.BigDecimal;
+import java.util.Date;
 
 /**
  * Created by yingchuanfu on 2018/11/23 0023.
@@ -23,6 +24,26 @@ public class OrderDetail {
     private Integer productQuantity;
     /** 商品图片 */
     private String productIcon;
+
+    private Date createTime;
+
+    private Date updateTime;
+
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
+
+    public Date getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
+    }
 
     public String getDetailId() {
         return detailId;

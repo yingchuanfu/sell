@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.net.URLEncoder;
+
 /**
  * Created by yingchuanfu on 2018/12/1 0001.
  */
@@ -48,4 +50,56 @@ public class WechatController {
         String openId = wxMpOAuth2AccessToken.getOpenId();
         return "redirect:"+returnUrl+"?openid="+openId;
     }
+
+    @GetMapping("/qrAuthorize")
+    public String qrAuthorize(@RequestParam("returnUrl") String returnUrl){
+        String url = "";
+        String redirectUrl = wxMpService.buildQrConnectUrl(url,
+                WxConsts.QRCONNECT_SCOPE_SNSAPI_LOGIN, URLEncoder.encode(returnUrl));
+    return null;
+    }
+
+    @GetMapping("/qrUserInfo")
+    public String qrUserInfo(@RequestParam("code") String code,
+                             @RequestParam("state") String returnUrl){
+        WxMpOAuth2AccessToken wxMpOAuth2AccessToken = new WxMpOAuth2AccessToken();
+        try{
+            wxMpOAuth2AccessToken = wxMpService.oauth2getAccessToken(code);
+        }catch (WxErrorException e){
+            logger.error("【微信网页授权】{}", e);
+            throw new SellException(ResultEnum.WECHAT_MP_ERROR.getCode(),
+                    e.getError().getErrorMsg());
+        }
+        logger.info("wxMpOAuth2AccessToken{}", wxMpOAuth2AccessToken);
+        String openid = wxMpOAuth2AccessToken.getOpenId();
+        return "redirect:" + returnUrl + "?openid=" + openid;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }

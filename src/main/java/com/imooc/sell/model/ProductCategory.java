@@ -3,7 +3,8 @@ package com.imooc.sell.model;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import java.sql.Date;
+import java.util.Date;
+
 
 /**
  * Created by yingchuanfu on 2018/11/21 0021.

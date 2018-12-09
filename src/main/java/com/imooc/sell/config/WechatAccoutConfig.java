@@ -3,6 +3,8 @@ package com.imooc.sell.config;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
+import java.util.Map;
+
 /**
  * created by yingchuanfu on 2018/12/6.
  */
@@ -10,8 +12,14 @@ import org.springframework.stereotype.Component;
 @ConfigurationProperties(prefix = "wechat")
 public class WechatAccoutConfig {
 
+    /** 公众平台id */
     private String mpAppId;
+    /** 公众平台密钥 */
     private String mpAppSecret;
+    /** 开放平台id */
+    private String openAppId;
+    /** 开放平台密钥 */
+    private String openAppSecrte;
     /** 商户号 */
     private String mchId;
     /** 商户密钥 */
@@ -20,6 +28,32 @@ public class WechatAccoutConfig {
     private String keyPath;
     /** 微信支付异步通知地址 */
     private String notifyUrl;
+    /** 微信模板id */
+    private Map<String, Object> templateId;
+
+    public Map<String, Object> getTemplateId() {
+        return templateId;
+    }
+
+    public void setTemplateId(Map<String, Object> templateId) {
+        this.templateId = templateId;
+    }
+
+    public String getOpenAppId() {
+        return openAppId;
+    }
+
+    public void setOpenAppId(String openAppId) {
+        this.openAppId = openAppId;
+    }
+
+    public String getOpenAppSecrte() {
+        return openAppSecrte;
+    }
+
+    public void setOpenAppSecrte(String openAppSecrte) {
+        this.openAppSecrte = openAppSecrte;
+    }
 
     public String getMpAppId() {
         return mpAppId;
