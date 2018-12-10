@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
-import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -82,11 +81,13 @@ public class SellerCategoryController {
 
         ProductCategory productCategory = new ProductCategory();
         try {
+            BeanUtils.copyProperties(form, productCategory);
             if (form.getCategoryId() != null) {
                 productCategory = categoryService.fineOne(form.getCategoryId());
+                productCategory.setCreateTime(productCategory.getCreateTime());
+            }else {
+                productCategory.setCreateTime(new Date());
             }
-            BeanUtils.copyProperties(form, productCategory);
-            productCategory.setCreateTime(new Date());
             productCategory.setUpdateTime(new Date());
             categoryService.save(productCategory);
         }catch (SellException e){

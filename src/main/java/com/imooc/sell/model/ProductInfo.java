@@ -1,10 +1,8 @@
 package com.imooc.sell.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.imooc.sell.enums.CodeEnum;
 import com.imooc.sell.enums.ProductStatusEnum;
 import com.imooc.sell.util.EnumUtil;
-import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -16,7 +14,8 @@ import java.util.Date;
  * Created by yingchuanfu on 2018/11/22 0022.
  */
 @Entity
-@DynamicUpdate
+///@DynamicUpdate
+//@Data
 public class ProductInfo {
     @Id
     private String productId;
@@ -34,13 +33,16 @@ public class ProductInfo {
     private Integer productStatus = ProductStatusEnum.UP.getCode();
     /** 类目编号 */
     private Integer categoryType;
+    /** 创建时间 */
     private Date createTime;
+    /** 更新时间 */
     private Date updateTime;
 
     @JsonIgnore
     public ProductStatusEnum getProductStatusEnum(){
         return EnumUtil.getByCode(productStatus, ProductStatusEnum.class);
     }
+
     public String getProductId() {
         return productId;
     }

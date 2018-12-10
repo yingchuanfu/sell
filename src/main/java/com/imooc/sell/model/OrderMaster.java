@@ -2,15 +2,11 @@ package com.imooc.sell.model;
 
 import com.imooc.sell.enums.OrderStatusEnum;
 import com.imooc.sell.enums.PayStatusEnum;
-import lombok.Getter;
-import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.Transient;
 import java.math.BigDecimal;
 import java.util.Date;
-import java.util.List;
 
 /**
  * Created by yingchuanfu on 2018/11/23 0023.
@@ -45,6 +41,7 @@ public class OrderMaster {
 
     //@Transient 可以防止报错数据库没有此字段
    // private List<OrderDetail> orderDetailList;
+
     public String getOrderId() {
         return orderId;
     }

@@ -10,6 +10,8 @@ import java.util.Date;
  * Created by yingchuanfu on 2018/11/21 0021.
  */
 @Entity
+//@DynamicUpdate
+//@Data
 public class ProductCategory {
     /** 类目id */
     @Id
@@ -19,8 +21,9 @@ public class ProductCategory {
     private String categoryName;
     /** 类目编号 */
     private Integer categoryType;
-
+    /** 创建时间 */
     private Date createTime;
+    /** 更新时间 */
     private Date updateTime;
 
     public ProductCategory() {
@@ -76,14 +79,5 @@ public class ProductCategory {
 
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
-    }
-
-    @Override
-    public String toString() {
-        return "ProductCategory{" +
-                "categoryId=" + categoryId +
-                ", categoryName='" + categoryName + '\'' +
-                ", categoryType=" + categoryType +
-                '}';
     }
 }
