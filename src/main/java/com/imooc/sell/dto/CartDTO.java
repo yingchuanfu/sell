@@ -1,8 +1,11 @@
 package com.imooc.sell.dto;
 
+import lombok.Data;
+
 /**购物车
  * Created by yingchuanfu on 2018/11/27 0027.
  */
+@Data
 public class CartDTO {
     /**商品 Id*/
     private String productId;
@@ -11,22 +14,6 @@ public class CartDTO {
 
     public CartDTO(String productId, Integer productQuantity) {
         this.productId = productId;
-        this.productQuantity = productQuantity;
-    }
-
-    public String getProductId() {
-        return productId;
-    }
-
-    public void setProductId(String productId) {
-        this.productId = productId;
-    }
-
-    public Integer getProductQuantity() {
-        return productQuantity;
-    }
-
-    public void setProductQuantity(Integer productQuantity) {
         this.productQuantity = productQuantity;
     }
 }

@@ -1,13 +1,13 @@
 package com.imooc.sell.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.imooc.sell.enums.OrderStatusEnum;
 import com.imooc.sell.enums.PayStatusEnum;
 import com.imooc.sell.model.OrderDetail;
 import com.imooc.sell.util.EnumUtil;
 import com.imooc.sell.util.serialize.DateLongSerializer;
+import lombok.Data;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -20,6 +20,7 @@ import java.util.List;
 //@JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
 //写在application.properties配置文件
 // /@JsonInclude(JsonInclude.Include.NON_NULL)
+@Data
 public class OrderDTO {
 
     private String orderId;
